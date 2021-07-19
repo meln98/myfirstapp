@@ -4,49 +4,40 @@ import numpy as np
 import pandas as pd
 import time
 
+
+
 st.header("My first Streamlit App")
 
-option = st.sidebar.selectbox(
-    'Select a mini project',
-     ['-','line chart','map','T n C','Long Process'])
+button = st.button("Covid_19 Data")
+st.write("Please click on the button above for general info")
+
+st.text_input('First name:')
+show = st.text_input
 
 
-if option=='line chart':
-    chart_data = pd.DataFrame(
-    np.random.randn(20, 3),
-    columns=['a', 'b', 'c'])
-
-    st.line_chart(chart_data)
-
-elif option=='map':
-    map_data = pd.DataFrame(
-    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
-    columns=['lat', 'lon'])
-
-    st.map(map_data)
-
-elif option=='T n C':
-
-    st.write('Before you continue, please read the [terms and conditions](https://www.gnu.org/licenses/gpl-3.0.en.html)')
-    show = st.checkbox('I agree the terms and conditions')
-    if show:
-        st.write(pd.DataFrame({
-        'Intplan': ['yes', 'yes', 'yes', 'no'],
-        'Churn Status': [0, 0, 0, 1]
-        }))
-
+if show:
+    st.text_input('Last name:')
 
 else:
-    'Starting a long computation...'
+    st.text_input('Please type your Last name:')
 
-    
-    latest_iteration = st.empty()
-    bar = st.progress(0)
 
-    for i in range(100):
-   
-        latest_iteration.text(f'Iteration {i+1}')
-        bar.progress(i + 1)
-        time.sleep(0.1)
 
-    '...and now we\'re done!'
+st.write('Before you continue, please read the [terms and conditions](https://www.gnu.org/licenses/gpl-3.0.en.html)')
+show = st.checkbox('I agree the terms and conditions')
+if show:
+        st.write(pd.DataFrame({
+        'Region': ['Americas', 'Asia', 'Europe', 'Africa', 'Oceania'],
+        'Covid_19 Cases (as of 18/05/2021)': [50000, 20000, 30000, 40000, 10000]
+        }))
+else:
+    'Thank you, please proceed'
+
+data = pd.read_csv("covid19_data.csv")
+
+# st.sidebar.checkbox("Show Analysis by State", True, key=1)
+# select = st.sidebar.selectbox('Select a Country',data['country'])
+
+option = st.sidebar.selectbox(
+    'Select a Region',
+     ['Americas','Asia','Europe','Africa','Oceania'])
